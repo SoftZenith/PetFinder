@@ -44,27 +44,26 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
         $scope.formData.htmlverified = "Yep (Thanks for giving us real data!)";
 
         gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
-
     });
 
-    // Creates a new user based on the form fields
+    //Agregar un nuevo registro
     $scope.createUser = function() {
 
-        // Grabs all of the text box fields
+        //Guardar los de datos que estan en la vista
         var userData = {
-            username: $scope.formData.username,
-            gender: $scope.formData.gender,
-            age: $scope.formData.age,
-            favlang: $scope.formData.favlang,
+            nombre: $scope.formData.username,
+            sexo: $scope.formData.gender,
+            edad: $scope.formData.age,
+            raza: $scope.formData.favlang,
             location: [$scope.formData.longitude, $scope.formData.latitude],
             htmlverified: $scope.formData.htmlverified
         };
 
-        // Saves the user data to the db
+        //Guardar los datos del usuario en la BD
         $http.post('/users', userData)
             .success(function (data) {
 
-                // Once complete, clear the form (except location)
+                // Una vez enviados, limpiamos los campos, excepto la localización
                 $scope.formData.username = "";
                 $scope.formData.gender = "";
                 $scope.formData.age = "";

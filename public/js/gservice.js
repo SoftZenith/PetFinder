@@ -63,10 +63,10 @@ angular.module('gservice', [])
 
                 // Create popup windows for each record
                 var  contentString =
-                    '<p><b>Nombre </b>: ' + user.username +
-                    '<br><b>Edad </b>: ' + user.age +
-                    '<br><b>Sexo </b>: ' + user.gender +
-                    '<br><b>Raza </b>: ' + user.favlang +
+                    '<p><b>Nombre </b>: ' + user.nombre +
+                    '<br><b>Edad </b>: ' + user.edad +
+                    '<br><b>Sexo </b>: ' + user.sexo +
+                    '<br><b>Raza </b>: ' + user.raza +
                     '</p>';
 
                 // Converts each of the JSON records into Google Maps Location format (Note [Lat, Lng] format).
@@ -96,6 +96,7 @@ var initialize = function(latitude, longitude) {
     if (!map){
 
         // Create a new map and place in the index.html page
+        //Crear mapa y ponerlo en index.html
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 3,
             center: myLatLng
