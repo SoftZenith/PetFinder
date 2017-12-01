@@ -17,8 +17,8 @@ angular.module('gservice', [])
         var locations = [];
 
         // Selected Location (initialize to center of America)
-        var selectedLat = 39.50;
-        var selectedLong = -98.35;
+        var selectedLat = 23.773;
+        var selectedLong = -102.491;
 
 
 
@@ -61,25 +61,27 @@ angular.module('gservice', [])
             for(var i= 0; i < response.length; i++) {
                 var user = response[i];
 
-                // Create popup windows for each record
+                // Crea un menu emergente por cada registro
                 var  contentString =
                     '<p><b>Nombre </b>: ' + user.nombre +
                     '<br><b>Edad </b>: ' + user.edad +
                     '<br><b>Sexo </b>: ' + user.sexo +
                     '<br><b>Raza </b>: ' + user.raza +
+                    '<br><b>Descripción </b>: ' + user.descripcion +
                     '</p>';
 
-                // Converts each of the JSON records into Google Maps Location format (Note [Lat, Lng] format).
+                // Convierte cada elemento del JSON en formato Google Maps Location.
                 locations.push({
                     latlon: new google.maps.LatLng(user.location[1], user.location[0]),
                     message: new google.maps.InfoWindow({
                         content: contentString,
                         maxWidth: 320
                     }),
-                    username: user.username,
-                    gender: user.gender,
-                    age: user.age,
-                    favlang: user.favlang
+                    nombre: user.nombre,
+                    sexo: user.sexo,
+                    edad: user.edad,
+                    raza: user.raza,
+                    descripcion: user.descripcion
             });
         }
         // location is now an array populated with records in Google Maps format
@@ -121,7 +123,7 @@ var initialize = function(latitude, longitude) {
         });
     });
 
-    // Set initial location as a bouncing red marker
+    //Iniciliazamos nuestro marcador en una posicion por default
     var initialLocation = new google.maps.LatLng(latitude, longitude);
     var marker = new google.maps.Marker({
         position: initialLocation,

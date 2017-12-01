@@ -26,22 +26,19 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
         $scope.$apply(function(){
             $scope.formData.latitude = parseFloat(gservice.clickLat).toFixed(3);
             $scope.formData.longitude = parseFloat(gservice.clickLong).toFixed(3);
-            $scope.formData.htmlverified = "Nope (Thanks for spamming my map...)";
+            //$scope.formData.htmlverified = "Nope (Thanks for spamming my map...)";
         });
     });
 
-    // Get User's actual coordinates based on HTML5 at window load
+    // Obtener coordenadas actuales del usuario
     geolocation.getLocation().then(function(data){
 
-        // Set the latitude and longitude equal to the HTML5 coordinates
+        // asigna las coordenadas obtenidas
         coords = {lat:data.coords.latitude, long:data.coords.longitude};
 
-        // Display coordinates in location textboxes rounded to three decimal points
+        // Mostrar las coordenadas en la vista con redondeo de tres decimales
         $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
         $scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
-
-        // Display message confirming that the coordinates verified.
-        $scope.formData.htmlverified = "Yep (Thanks for giving us real data!)";
 
         gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
     });
@@ -54,9 +51,10 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
             nombre: $scope.formData.username,
             sexo: $scope.formData.gender,
             edad: $scope.formData.age,
-            raza: $scope.formData.favlang,
+            raza: $scope.formData.raza,
+            descripcion: $scope.formData.descripcion,
             location: [$scope.formData.longitude, $scope.formData.latitude],
-            htmlverified: $scope.formData.htmlverified
+            //htmlverified: $scope.formData.htmlverified
         };
 
         //Guardar los datos del usuario en la BD
@@ -67,7 +65,8 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
                 $scope.formData.username = "";
                 $scope.formData.gender = "";
                 $scope.formData.age = "";
-                $scope.formData.favlang = "";
+                $scope.formData.raza = "";
+                $scope.formData.descripcion = "";
 
             })
             .error(function (data) {

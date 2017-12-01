@@ -1,21 +1,22 @@
-// Pulls Mongoose dependency for creating schemas
+//Importamos los modulos mongoose y Schema necesarios para conectar a MongoDB y crear nuestro esquema
 var mongoose    = require('mongoose');
 var Schema      = mongoose.Schema;
 
-// Creates a User Schema. This will be the basis of how user data is stored in the db
-var UserSchema = new Schema({
+//Definimos un esquema, con los campos que utilizaremos y almacenaremos en nuestra base de datos MongoDB
+var MascotaEsquema = new Schema({
     nombre: {type: String, required: true},
     sexo: {type: String, required: true},
     edad: {type: Number, required: true},
     raza: {type: String, required: true},
+    descripcion: {type: String, required: true},
     location: {type: [Number], required: true}, // [Long, Lat]
-    htmlverified: String,
+    //htmlverified: String,
     created_at: {type: Date, default: Date.now},
     updated_at: {type: Date, default: Date.now}
 });
 
 // Sets the created_at parameter equal to the current time
-UserSchema.pre('save', function(next){
+MascotaEsquema.pre('save', function(next){
     now = new Date();
     this.updated_at = now;
     if(!this.created_at) {
@@ -25,7 +26,8 @@ UserSchema.pre('save', function(next){
 });
 
 // Indexes this schema in 2dsphere format (critical for running proximity searches)
-UserSchema.index({location: '2dsphere'});
+MascotaEsquema.index({location: '2dsphere'});
 
-// Exports the UserSchema for use elsewhere. Sets the MongoDB collection to be used as: "scotch-users"
-module.exports = mongoose.model('mascotas', UserSchema);
+//Exportamos MascotaEsquema para usarlo en cualquier otra parte del proyecto
+//Asignamos el esquema a la collection mascotas de nuestra base de datos en MongoDB
+module.exports = mongoose.model('mascotas', MascotaEsquema);
