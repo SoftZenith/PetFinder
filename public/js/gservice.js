@@ -17,8 +17,8 @@ angular.module('gservice', [])
         var locations = [];
 
         // Selected Location (initialize to center of America)
-        var selectedLat = 23.773;
-        var selectedLong = -102.491;
+        var selectedLat = 39.500;
+        var selectedLong = -98.350;
 
 
 
@@ -54,10 +54,10 @@ angular.module('gservice', [])
         // Convert a JSON of users into map points
         var convertToMapPoints = function(response){
 
-            // Clear the locations holder
+
             var locations = [];
 
-            // Loop through all of the JSON entries provided in the response
+            // Itera atravez de todos los JSON
             for(var i= 0; i < response.length; i++) {
                 var user = response[i];
 
@@ -84,20 +84,18 @@ angular.module('gservice', [])
                     descripcion: user.descripcion
             });
         }
-        // location is now an array populated with records in Google Maps format
+        // returna un vector con los registros en formato Google Maps
         return locations;
     };
 
-// Initializes the map
+// Inicializar mapa
 var initialize = function(latitude, longitude) {
 
-    // Uses the selected lat, long as starting point
+    // usa la latitud y longitud como puntos de partida
     var myLatLng = {lat: selectedLat, lng: selectedLong};
 
-    // If map has not been created already...
+    // Si el mapa no ha sido creado
     if (!map){
-
-        // Create a new map and place in the index.html page
         //Crear mapa y ponerlo en index.html
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 3,
@@ -105,7 +103,8 @@ var initialize = function(latitude, longitude) {
         });
     }
 
-    // Loop through each location in the array and place a marker
+
+    // Itera atraves de cada localización en el vector y pone un marcador
     locations.forEach(function(n, i){
         var marker = new google.maps.Marker({
             position: n.latlon,
@@ -114,10 +113,10 @@ var initialize = function(latitude, longitude) {
             icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
         });
 
-        // For each marker created, add a listener that checks for clicks
+        // Por cada marcador creado, agrega un listener que escucha los eventos click
         google.maps.event.addListener(marker, 'click', function(e){
 
-            // When clicked, open the selected marker's message
+            // Cuando es clicleado, abre el mensaje del marcador seleccionado
             currentSelectedMarker = n;
             n.message.open(map, marker);
         });
@@ -134,10 +133,10 @@ var initialize = function(latitude, longitude) {
     lastMarker = marker;
 
 
-  // Function for moving to a selected location
+
   map.panTo(new google.maps.LatLng(latitude, longitude));
 
-  // Clicking on the Map moves the bouncing red marker
+  //Muevo marcador haciendo click
   google.maps.event.addListener(map, 'click', function(e){
       var marker = new google.maps.Marker({
           position: e.latLng,
@@ -146,16 +145,15 @@ var initialize = function(latitude, longitude) {
           icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
       });
 
-      // When a new spot is selected, delete the old red bouncing marker
+
       if(lastMarker){
           lastMarker.setMap(null);
       }
 
-      // Create a new red bouncing marker and move to it
+      //Crea un nuevo marcador y lo pinta en la posición
       lastMarker = marker;
       map.panTo(marker.position);
-      
-      // Update Broadcasted Variable (lets the panels know to change their lat, long values)
+
       googleMapService.clickLat = marker.getPosition().lat();
       googleMapService.clickLong = marker.getPosition().lng();
       $rootScope.$broadcast("clicked");
@@ -164,7 +162,8 @@ var initialize = function(latitude, longitude) {
 
 };
 
-// Refresh the page upon window load. Use the initial latitude and longitude
+
+// Refresca mapa usando la longitud y latitud inicial
 google.maps.event.addDomListener(window, 'load',
     googleMapService.refresh(selectedLat, selectedLong));
 

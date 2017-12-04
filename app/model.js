@@ -9,13 +9,12 @@ var MascotaEsquema = new Schema({
     edad: {type: Number, required: true},
     raza: {type: String, required: true},
     descripcion: {type: String, required: true},
-    location: {type: [Number], required: true}, // [Long, Lat]
+    location: {type: [Number], required: true},
     //htmlverified: String,
     created_at: {type: Date, default: Date.now},
     updated_at: {type: Date, default: Date.now}
 });
 
-// Sets the created_at parameter equal to the current time
 MascotaEsquema.pre('save', function(next){
     now = new Date();
     this.updated_at = now;
@@ -25,7 +24,7 @@ MascotaEsquema.pre('save', function(next){
     next();
 });
 
-// Indexes this schema in 2dsphere format (critical for running proximity searches)
+// Indices en formato 2dsphere, importante para ejecutar busquedas de proximidad
 MascotaEsquema.index({location: '2dsphere'});
 
 //Exportamos MascotaEsquema para usarlo en cualquier otra parte del proyecto

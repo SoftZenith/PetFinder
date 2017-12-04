@@ -33,21 +33,21 @@
     <div class="header">
         <h3 class="text-muted">Petfinder</h3>
     </div>
-    <!-- Map and Side Panel -->
+    <!-- Mapa y panel lateral -->
     <div class="row content">
         <!-- Google Map -->
         <div class="col-md-7">
-          <div id="map" style="width:645px; height:645px"></div>
+          <div id="map" style="width:645px; height:705px"></div>
         </div>
 
-        <!-- Side Panel -->
+        <!-- Panel lateral -->
         <div class="col-md-5">
             <div class="panel panel-default">
-                <!-- Panel Title -->
+                <!-- Titulo del panel -->
                 <div class="panel-heading">
                     <h2 class="panel-title text-center"> Añade tu mascota <span class="glyphicon glyphicon-map-marker"></span></h2>
                 </div>
-                <!-- Panel Body -->
+                <!-- cuerpo del panel -->
                 <div class="panel-body">
                     <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
                     <form name ="addForm" novalidate>
@@ -80,7 +80,8 @@
 
                         <div class="form-group">
                             <label for="descripcion">Descripcion</label>
-                            <input type="text" class="form-control" id="descripcion" placeholder="Descripcion ..." ng-model="formData.descripcion" required>
+                            <textarea type="text" cols="40" rows="4" class="form-control" id="descripcion" placeholder="Descripcion ..." ng-model="formData.descripcion" required>
+                            </textarea>
                         </div>
 
                         <div class="form-group">
@@ -100,10 +101,6 @@
         </div>
     </div>
     <hr/>
-    <!-- Footer -->
-    <div class="footer">
-
-    </div>
 </div>
 </body>
 </html>
