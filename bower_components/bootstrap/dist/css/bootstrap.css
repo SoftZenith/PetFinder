@@ -11,6 +11,10 @@ html {
 }
 body {
   margin: 0;
+background: url("https://image.freepik.com/vector-gratis/perros-y-gatos-patron_1196-281.jpg")100% 100%!important;
+  background-attachment: fixed!important;
+  background-repeat:repeat!important;
+  background-position:top left !important;
 }
 article,
 aside,
@@ -43,7 +47,7 @@ template {
   display: none;
 }
 a {
-  background-color: transparent;
+  background-color:transparent;
 }
 a:active,
 a:hover {
@@ -61,7 +65,8 @@ dfn {
 }
 h1 {
   margin: .67em 0;
-  font-size: 2em;
+  font-size: 3em;
+  color: chartreuse;
 }
 mark {
   color: #000;
